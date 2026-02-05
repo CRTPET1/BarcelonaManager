@@ -59,6 +59,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\ITransferable.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerBase.cs" />
     <Compile Include="Models\Team.cs" />
