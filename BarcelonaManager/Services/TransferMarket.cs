@@ -4,18 +4,17 @@ namespace BarcelonaManager.Services
 {
     public class TransferMarket
     {
-        public static bool BuyPlayer(Team team, Player player, decimal price)
+        public static bool BuyPlayer(Team team, PlayerBase player, decimal price)
         {
-            if (Team.Budget >= price)
-            {
-                Team.Budget -= price;
-                team.AddPlayer(player);
-                return true;
-            }
-            return false;
+            if (Team.Budget < price)
+                return false;
+
+            Team.Budget -= price;
+            team.AddPlayer(player);
+            return true;
         }
 
-        public static void SellPlayer(Team team, Player player, decimal price)
+        public static void SellPlayer(Team team, PlayerBase player, decimal price)
         {
             Team.Budget += price;
             team.RemovePlayer(player);

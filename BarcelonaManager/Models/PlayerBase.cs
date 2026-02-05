@@ -20,7 +20,7 @@ namespace BarcelonaManager.Models
         public abstract decimal CalculateSalary();
 
         // polimorfizem
-        public override string Info()
+        public override string ToString()
         {
             return $"{Name} ({Position}) | {Age} let | {Value}M €";
         }

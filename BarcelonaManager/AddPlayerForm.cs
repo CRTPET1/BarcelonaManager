@@ -19,20 +19,40 @@ namespace BarcelonaManager
         }
 
         // ===== LASTNOST =====
-        public Player NewPlayer { get; private set; }
+        public PlayerBase NewPlayer { get; private set; }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            NewPlayer = new Player(
-                txtName.Text,
-                txtPos.Text,
-                (int)numAge.Value,
-                (decimal)numValue.Value
-            );
+            string position = txtPos.Text.ToLower();
+
+            if (position == "napadalec")
+            {
+                NewPlayer = new Forward(
+                    txtName.Text,
+                    (int)numAge.Value,
+                    (decimal)numValue.Value
+                );
+            }
+            else if (position == "branilec")
+            {
+                NewPlayer = new Defender(
+                    txtName.Text,
+                    (int)numAge.Value,
+                    (decimal)numValue.Value
+                );
+            }
+            else
+            {
+                NewPlayer = new Player(
+                    txtName.Text,
+                    (int)numAge.Value,
+                    (decimal)numValue.Value
+                );
+            }
+
 
             DialogResult = DialogResult.OK;
             Close();
         }
-
     }
 }

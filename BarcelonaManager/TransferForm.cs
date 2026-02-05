@@ -29,19 +29,19 @@ namespace BarcelonaManager
 
         private void btnBuy_Click(object sender, EventArgs e)
         {
-            var p = new Player("Random", "Napadalec", 25, numPrice.Value);
+            var p = new Player("Random", 25, numPrice.Value);
             if (TransferMarket.BuyPlayer(team, p, numPrice.Value))
                 MessageBox.Show("Nakup uspešen!");
             else
                 MessageBox.Show("Premalo budgeta!");
         }
 
-        private void btnSell_Click(object sender, EventArgs e)
+        public void btnSell_Click(object sender, EventArgs e)
         {
             if (cmbPlayers.SelectedIndex < 0) return;
 
-            var player = team.Players[cmbPlayers.SelectedIndex];
-            TransferMarket.SellPlayer(team, player, numPrice.Value);
+            var playerBase = team.Players[cmbPlayers.SelectedIndex];
+            TransferMarket.SellPlayer(team, playerBase, numPrice.Value);
             MessageBox.Show("Prodaja uspešna!");
         }
 

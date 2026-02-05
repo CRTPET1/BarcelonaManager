@@ -10,19 +10,20 @@ namespace BarcelonaManager.Models
 
         public string Name { get; } = "FC Barcelona";
 
-        private List<Player> players = new List<Player>();
+        private List<PlayerBase> players = new List<PlayerBase>();
 
         // PROPERTY za dostop
-        public IReadOnlyList<Player> Players => players.AsReadOnly();
+        public IReadOnlyList<PlayerBase> Players => players.AsReadOnly();
 
         // metode za ekipo
-        public void AddPlayer(Player p)
+        public void AddPlayer(PlayerBase p)
         {
             if (!players.Contains(p))
                 players.Add(p);
         }
 
-        public void RemovePlayer(Player p)
+
+        public void RemovePlayer(PlayerBase p)
         {
             if (players.Contains(p))
                 players.Remove(p);
@@ -30,15 +31,18 @@ namespace BarcelonaManager.Models
 
         public int TotalGoals()
         {
-            return players.Sum(x => x.Goals);
+            return players
+                .OfType<Forward>()
+                .Sum(f => f.Goals);
         }
+
 
         public override string Info()
         {
             return $"{Name} | {players.Count} igralcev | Golov skupaj: {TotalGoals()}";
         }
 
-        public Player MostValuablePlayer()
+        public PlayerBase MostValuablePlayer()
         {
             return players.OrderByDescending(p => p.Value).FirstOrDefault();
         }

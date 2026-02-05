@@ -75,5 +75,6 @@ namespace BarcelonaManager
                 f.ShowDialog();
             }
         }
+
     }
 }
