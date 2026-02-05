@@ -58,7 +58,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Defender.cs" />
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\Forward.cs" />
     <Compile Include="Models\ITransferable.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerBase.cs" />

@@ -60,5 +60,15 @@ namespace BarcelonaManager.Models
                 .ToDictionary(g => g.Key, g => g.Count());
         }
 
+        public PlayerBase this[int index]
+        {
+            get
+            {
+                if (index >= 0 && index < players.Count)
+                    return players[index];
+                return null;
+            }
+        }
+
     }
 }
