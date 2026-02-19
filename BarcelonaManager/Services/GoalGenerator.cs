@@ -73,13 +73,29 @@ namespace BarcelonaManager.Services
 
                 // //polimorfizem - nastavi gole v samem objektu
                 if (player is Forward f)
+                {
                     f.Goals = goals;
+                    f.CareerGoals += goals;  // Prištej h kariernim golom
+                }
                 else if (player is Midfielder m)
                 {
                     m.Goals = goals;
                     m.Assists = (int)(goals * 1.5 + _rng.Next(0, 5));
+                    m.CareerGoals += goals;               // Karierni goli
+                    m.CareerAssists += m.Assists;         // Karierne asistence
+                }
+                else if (player is Defender)
+                {
+                    player.CareerGoals += goals;          // Branilci redko, a vseeno beležimo
                 }
             }
+
+            // Vratar – prišteji karierne gole
+            if (player is Goalkeeper gkCareer)
+                gkCareer.CareerGoals += gkCareer.Goals;
+
+            // Vsak igralec dobi +1 sezono v klubu
+            player.SeasonsAtClub++;
 
             // //dogodek - obvestimo vse, ki poslušajo (npr. Form1 da osveži UI)
             OnGoalsGenerated?.Invoke(player.Name, player.Position, goals);
