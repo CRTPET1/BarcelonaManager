@@ -61,6 +61,7 @@
     <Compile Include="Models\Defender.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Forward.cs" />
+    <Compile Include="Models\Goalkeeper.cs" />
     <Compile Include="Models\ITransferable.cs" />
     <Compile Include="Models\Midfielder.cs" />
     <Compile Include="Models\Player.cs" />
