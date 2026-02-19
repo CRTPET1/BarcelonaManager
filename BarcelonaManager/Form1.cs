@@ -205,5 +205,10 @@ namespace BarcelonaManager
                 f.ShowDialog();
             }
         }
+
+        private void lstPlayers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
