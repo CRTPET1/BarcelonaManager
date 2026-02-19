@@ -48,6 +48,8 @@ namespace BarcelonaManager
                 if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     Barca.AddPlayer(f.NewPlayer);
+                    // Registriraj lastnega igralca tudi na trgu prestopov!
+                    MarketPlayerDatabase.RegisterCustomPlayer(f.NewPlayer);
                     RefreshUI();
                 }
             }
@@ -95,6 +97,40 @@ namespace BarcelonaManager
                 MessageBox.Show("Ekipa je prazna! Dodaj najprej igralce.",
                     "Napaka", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            // ===== BUDGET DIALOG =====
+            // Pred vsako sezono izbereš koliko budgeta dobiš
+            using (var budgetForm = new Form())
+            {
+                budgetForm.Text = $"Sezona {_seasonNumber + 1} – Nastavi budget";
+                budgetForm.Size = new System.Drawing.Size(360, 180);
+                budgetForm.StartPosition = FormStartPosition.CenterParent;
+                budgetForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                budgetForm.MaximizeBox = false;
+
+                var lbl = new Label { Text = "Koliko budgeta (v €) dobiš za to sezono?", Left = 15, Top = 20, Width = 320 };
+                var num = new NumericUpDown
+                {
+                    Left = 15,
+                    Top = 50,
+                    Width = 200,
+                    Minimum = 0,
+                    Maximum = 2_000_000_000,
+                    Increment = 5_000_000,
+                    Value = 75_000_000,
+                    ThousandsSeparator = true
+                };
+                var btnOk = new Button { Text = "Potrdi", Left = 230, Top = 48, Width = 90, DialogResult = DialogResult.OK };
+                budgetForm.Controls.AddRange(new Control[] { lbl, num, btnOk });
+                budgetForm.AcceptButton = btnOk;
+
+                if (budgetForm.ShowDialog() == DialogResult.OK)
+                {
+                    Team.Budget += (decimal)num.Value; // Dodamo k obstoječemu
+                    MessageBox.Show($"✅ Budget povečan za {(decimal)num.Value:N0} €\nNovi budget: {Team.Budget:N0} €",
+                        "Budget nastavljen", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
 
             _seasonNumber++;
