@@ -1,23 +1,24 @@
 ﻿using BarcelonaManager.Models;
-// ===== UPORABA LASTNIH KNJIŽNIC =====
+// //uporaba lastnih knjižnic - uvoz naših modelov in servisov
+using BarcelonaManager.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BarcelonaManager
 {
-    // ===== DEDOVANJE =====
+    // //dedovanje - Form1 deduje od Form (WinForms)
     public partial class Form1 : Form
     {
-        // ===== KAPSULACIJA =====
+        // //kapsulacija - zasebno polje ekipe
         private Team Barca = new Team();
-        // ===== KONSTRUKTOR =====
+
+        // Šteje katero sezono smo (prikazuje se v naslovu)
+        // //static - skupen števec za celo aplikacijo
+        private static int _seasonNumber = 1;
+
+        // //konstruktor
         public Form1()
         {
             InitializeComponent();
@@ -27,20 +28,24 @@ namespace BarcelonaManager
         {
             RefreshUI();
         }
+
+        // //objektna metoda - osveži celoten prikaz na Form1
         private void RefreshUI()
         {
             lstPlayers.Items.Clear();
             foreach (var p in Barca.Players)
                 lstPlayers.Items.Add(p.ToString());
 
-            lblInfo.Text = Barca.Info() + $" | Budget: {Team.Budget}€";
+            lblInfo.Text = Barca.Info() + $"  |  Budget: {Team.Budget:N0} €";
+            this.Text = $"Barcelona Manager – Sezona {_seasonNumber}";
         }
 
+        // ===== GUMB: Dodaj igralca =====
         private void btnAddPlayer_Click(object sender, EventArgs e)
         {
             using (var f = new AddPlayerForm())
             {
-                if (f.ShowDialog() == DialogResult.OK)
+                if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     Barca.AddPlayer(f.NewPlayer);
                     RefreshUI();
@@ -48,17 +53,22 @@ namespace BarcelonaManager
             }
         }
 
-
+        // ===== GUMB: Odstrani igralca =====
         private void btnRemovePlayer_Click(object sender, EventArgs e)
         {
-            if (lstPlayers.SelectedIndex >= 0)
+            if (lstPlayers.SelectedIndex < 0)
             {
-                var player = Barca.Players[lstPlayers.SelectedIndex];
-                Barca.RemovePlayer(player);
-                RefreshUI();
+                MessageBox.Show("Najprej izberi igralca iz seznama!",
+                    "Ni izbire", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
+
+            var player = Barca.Players[lstPlayers.SelectedIndex];
+            Barca.RemovePlayer(player);
+            RefreshUI();
         }
 
+        // ===== GUMB: Trg prestopov =====
         private void btnMarket_Click(object sender, EventArgs e)
         {
             using (var f = new TransferForm(Barca))
@@ -68,6 +78,7 @@ namespace BarcelonaManager
             }
         }
 
+        // ===== GUMB: Statistika =====
         private void btnStats_Click(object sender, EventArgs e)
         {
             using (var f = new StatsForm(Barca))
@@ -76,5 +87,44 @@ namespace BarcelonaManager
             }
         }
 
+        // ===== GUMB: Next Season – GENERATOR GOLOV =====
+        private void btnNextSeason_Click(object sender, EventArgs e)
+        {
+            if (Barca.Players.Count == 0)
+            {
+                MessageBox.Show("Ekipa je prazna! Dodaj najprej igralce.",
+                    "Napaka", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            _seasonNumber++;
+
+            // //statična metoda - pokličemo generator golov za celo ekipo
+            // //delegat + dogodek - GoalGenerator interno sproži dogodek za vsakega igralca
+            Dictionary<string, int> rezultati = GoalGenerator.GenerateForTeam(Barca.Players);
+
+            // Sestavi poročilo
+            // //kapsulacija - StringBuilder za sestavljanje besedila
+            var sb = new StringBuilder();
+            sb.AppendLine($"📅 SEZONA {_seasonNumber} – REZULTATI\n");
+            sb.AppendLine("═══════════════════════════════════");
+
+            int skupajGolov = 0;
+            foreach (var par in rezultati)
+            {
+                sb.AppendLine($"⚽  {par.Key,-22} → {par.Value,3} golov/podaj");
+                skupajGolov += par.Value;
+            }
+
+            sb.AppendLine("═══════════════════════════════════");
+            sb.AppendLine($"🏆  SKUPAJ ekipa: {skupajGolov} golov/podaj");
+
+            // Pokaži poročilo
+            MessageBox.Show(sb.ToString(), $"Rezultati sezone {_seasonNumber}",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Osveži UI (seznam zdaj prikazuje gole v ToString())
+            RefreshUI();
+        }
     }
 }
