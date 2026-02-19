@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{821BB0B0-05F6-44BA-B851-0E7101DB653A}</ProjectGuid>
+    <ProjectGuid>{521A131C-CE7C-4F78-98CD-46BAE33A7687}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>BarcelonaManager</RootNamespace>
-    <AssemblyName>BarcelonaManager</AssemblyName>
+    <RootNamespace>PlayerStatsForm</RootNamespace>
+    <AssemblyName>PlayerStatsForm</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,59 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddPlayerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddPlayerForm.Designer.cs">
-      <DependentUpon>AddPlayerForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Defender.cs" />
-    <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\Forward.cs" />
-    <Compile Include="Models\Goalkeeper.cs" />
-    <Compile Include="Models\ITransferable.cs" />
-    <Compile Include="Models\Midfielder.cs" />
-    <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\PlayerBase.cs" />
-    <Compile Include="Models\Team.cs" />
-    <Compile Include="PlayerStatsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PlayerStatsForm.Designer.cs">
-      <DependentUpon>PlayerStatsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\GoalGenerator.cs" />
-    <Compile Include="Services\MarketPlayerDatabase.cs" />
-    <Compile Include="Services\TransferMarket.cs" />
-    <Compile Include="StatsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="StatsForm.Designer.cs">
-      <DependentUpon>StatsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TransferForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TransferForm.Designer.cs">
-      <DependentUpon>TransferForm.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="AddPlayerForm.resx">
-      <DependentUpon>AddPlayerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PlayerStatsForm.resx">
-      <DependentUpon>PlayerStatsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -108,12 +63,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="StatsForm.resx">
-      <DependentUpon>StatsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TransferForm.resx">
-      <DependentUpon>TransferForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -127,6 +76,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

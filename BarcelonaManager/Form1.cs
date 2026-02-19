@@ -139,6 +139,30 @@ namespace BarcelonaManager
             // //delegat + dogodek - GoalGenerator interno sproži dogodek za vsakega igralca
             Dictionary<string, int> rezultati = GoalGenerator.GenerateForTeam(Barca.Players);
 
+            // ===== STARANJE IN VREDNOST =====
+            // Vsak igralec se postara za 1 leto
+            // Če je starejši od 33 → vrednost pade za 20%
+            // Pokoj: starost >= 41 ali vrednost < 15M
+            var upokojenList = new List<PlayerBase>();
+            foreach (var p in Barca.Players)
+            {
+                p.Age++;  // +1 leto
+
+                if (p.Age > 33)
+                    p.Value = Math.Round(p.Value * 0.80m, 1);  // -20% vrednosti
+
+                if (p.Age >= 41 || p.Value < 15m)
+                    upokojenList.Add(p);
+            }
+
+            // Upokoji vse ki ustrezajo pogoju
+            var upokojenSb = new StringBuilder();
+            foreach (var star in upokojenList)
+            {
+                Barca.RemovePlayer(star);
+                upokojenSb.AppendLine($"  👴  {star.Name} ({star.Position}) – {star.Age} let, vrednost {star.Value}M €");
+            }
+
             // Sestavi poročilo
             // //kapsulacija - StringBuilder za sestavljanje besedila
             var sb = new StringBuilder();
@@ -155,12 +179,31 @@ namespace BarcelonaManager
             sb.AppendLine("═══════════════════════════════════");
             sb.AppendLine($"🏆  SKUPAJ ekipa: {skupajGolov} golov/podaj");
 
+            if (upokojenSb.Length > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("👴 UPOKOJENI IGRALCI:");
+                sb.Append(upokojenSb);
+            }
+
             // Pokaži poročilo
             MessageBox.Show(sb.ToString(), $"Rezultati sezone {_seasonNumber}",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Osveži UI (seznam zdaj prikazuje gole v ToString())
             RefreshUI();
+        }
+
+        // ===== DVOJNI KLIK na igralca v listboxu → pokaži njegovo kariero =====
+        private void lstPlayers_DoubleClick(object sender, EventArgs e)
+        {
+            if (lstPlayers.SelectedIndex < 0) return;
+
+            var player = Barca.Players[lstPlayers.SelectedIndex];
+            using (var f = new PlayerStatsForm(player))
+            {
+                f.ShowDialog();
+            }
         }
     }
 }
