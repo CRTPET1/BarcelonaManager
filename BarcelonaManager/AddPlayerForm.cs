@@ -71,6 +71,7 @@ namespace BarcelonaManager
                         txtName.Text,
                         (int)numAge.Value,
                         (decimal)numValue.Value);
+                    break;
 
                 default:
                     NewPlayer = new Player(

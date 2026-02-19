@@ -61,11 +61,19 @@ namespace BarcelonaManager.Services
         }
 
         // //statična metoda - doda igralca nazaj na trg (kliče se ko prodamo igralca)
+        // TUDI ko sami ustvarimo igralca in ga prodamo - pristane na trgu
         public static void AddToMarket(PlayerBase player)
         {
             // Preverimo da ga ni že na trgu (izognemo se podvajanju)
             if (!_allMarketPlayers.Contains(player))
                 _allMarketPlayers.Add(player);
+        }
+
+        // //statična metoda - posebej za dodajanje lastnih (ročno ustvarjenih) igralcev
+        // Kliče se iz Form1 ko dodamo novega igralca z AddPlayerForm
+        public static void RegisterCustomPlayer(PlayerBase player)
+        {
+            AddToMarket(player);
         }
 
         // //statična metoda - vrne število vseh tržnih igralcev
