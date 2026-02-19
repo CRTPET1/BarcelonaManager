@@ -1,55 +1,77 @@
 ﻿using BarcelonaManager.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BarcelonaManager
 {
+    // //dedovanje - AddPlayerForm deduje od Form (WinForms)
     public partial class AddPlayerForm : Form
     {
+        // //konstruktor
         public AddPlayerForm()
         {
             InitializeComponent();
         }
 
-        // ===== LASTNOST =====
+        // //lastnost - kapsuliran dostop do ustvarjenega igralca
+        // //kapsulacija - set je private, samo znotraj tega razreda ga nastavimo
         public PlayerBase NewPlayer { get; private set; }
+
+        private void AddPlayerForm_Load(object sender, EventArgs e)
+        {
+            // Napolni dropdown s pozicijami (namesto ročnega vpisa)
+            cmbPosition.Items.Clear();
+            cmbPosition.Items.Add("Forward");
+            cmbPosition.Items.Add("Midfielder");
+            cmbPosition.Items.Add("Defender");
+            cmbPosition.Items.Add("Generic");
+            cmbPosition.SelectedIndex = 0; // Privzeto "Forward"
+        }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            string position = txtPos.Text.ToLower();
-
-            if (position == "napadalec")
+            // Preverimo da je ime vpisano
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                NewPlayer = new Forward(
-                    txtName.Text,
-                    (int)numAge.Value,
-                    (decimal)numValue.Value
-                );
-            }
-            else if (position == "branilec")
-            {
-                NewPlayer = new Defender(
-                    txtName.Text,
-                    (int)numAge.Value,
-                    (decimal)numValue.Value
-                );
-            }
-            else
-            {
-                NewPlayer = new Player(
-                    txtName.Text,
-                    (int)numAge.Value,
-                    (decimal)numValue.Value
-                );
+                MessageBox.Show("Vpiši ime igralca!", "Napaka",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
+            string position = cmbPosition.SelectedItem?.ToString() ?? "Generic";
+
+            // //polimorfizem - ustvarimo pravilen tip glede na izbrano pozicijo
+            // //konstruktor - klic konstruktorja za vsak podrazred
+            switch (position)
+            {
+                case "Forward":
+                    NewPlayer = new Forward(
+                        txtName.Text,
+                        (int)numAge.Value,
+                        (decimal)numValue.Value);
+                    break;
+
+                case "Midfielder":
+                    NewPlayer = new Midfielder(
+                        txtName.Text,
+                        (int)numAge.Value,
+                        (decimal)numValue.Value);
+                    break;
+
+                case "Defender":
+                    NewPlayer = new Defender(
+                        txtName.Text,
+                        (int)numAge.Value,
+                        (decimal)numValue.Value);
+                    break;
+
+                default:
+                    NewPlayer = new Player(
+                        txtName.Text,
+                        (int)numAge.Value,
+                        (decimal)numValue.Value);
+                    break;
+            }
 
             DialogResult = DialogResult.OK;
             Close();
