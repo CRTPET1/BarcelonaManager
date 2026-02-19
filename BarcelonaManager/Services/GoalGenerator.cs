@@ -24,38 +24,62 @@ namespace BarcelonaManager.Services
         private const double DefenderGoalFactor = 0.03;   // Branilci: redki goli
         private const double GenericGoalFactor = 0.05;
 
+        // Vratar - posebna logika: 10% možnost da sploh da gol
+        // Ob uspehu: 1 gol (75%), 2 gola (20%), 3 gole (3%), 4 gole (1%), 5 golov (1%)
+        private int GenerateGoalkeeperGoals()
+        {
+            // 10% verjetnost da sploh zadane
+            if (_rng.NextDouble() >= 0.10)
+                return 0;
+
+            // Ob uspehu: naključno določi točno število golov
+            double roll = _rng.NextDouble();
+            if (roll < 0.75) return 1;        // 75%
+            if (roll < 0.95) return 2;        // 20%
+            if (roll < 0.98) return 3;        //  3%
+            if (roll < 0.99) return 4;        //  1%
+            return 5;                          //  1%
+        }
+
         // //objektna metoda - generira gole za enega igralca
         public int GenerateGoals(PlayerBase player)
         {
-            double factor = GenericGoalFactor;
+            int goals;
 
             // //polimorfizem - preverimo dejanski tip igralca
-            if (player is Forward)
-                factor = ForwardGoalFactor;
-            else if (player is Midfielder)
-                factor = MidfielderGoalFactor;
-            else if (player is Defender)
-                factor = DefenderGoalFactor;
-
-            // Baza golov = vrednost × faktor
-            // Primer: Forward vrednost 100M → 100 × 0.40 = 40 golov
-            // Nato dodamo ±20% naključnosti (dobra/slaba sezona)
-            double baseGoals = (double)player.Value * factor;
-            double variance = baseGoals * 0.20;
-            int goals = (int)(baseGoals + _rng.NextDouble() * variance * 2 - variance);
-            goals = Math.Max(0, goals); // Ne moremo imeti negativnih golov
-
-            // Nastavi gole v samem objektu (odvisno od tipa)
-            // //polimorfizem
-            if (player is Forward f)
-                f.Goals = goals;
-            else if (player is Midfielder m)
+            if (player is Goalkeeper gk)
             {
-                m.Goals = goals;
-                // Vezisti imajo več podaj kot golov
-                m.Assists = (int)(goals * 1.5 + _rng.Next(0, 5));
+                // Vratar ima svojo posebno logiko
+                goals = GenerateGoalkeeperGoals();
+                gk.Goals = goals;
             }
-            // Branilci nimajo Goals property - ne shranjujemo
+            else
+            {
+                double factor = GenericGoalFactor;
+
+                if (player is Forward)
+                    factor = ForwardGoalFactor;
+                else if (player is Midfielder)
+                    factor = MidfielderGoalFactor;
+                else if (player is Defender)
+                    factor = DefenderGoalFactor;
+
+                // Baza golov = vrednost × faktor
+                // Nato dodamo ±20% naključnosti (dobra/slaba sezona)
+                double baseGoals = (double)player.Value * factor;
+                double variance = baseGoals * 0.20;
+                goals = (int)(baseGoals + _rng.NextDouble() * variance * 2 - variance);
+                goals = Math.Max(0, goals); // Ne moremo imeti negativnih golov
+
+                // //polimorfizem - nastavi gole v samem objektu
+                if (player is Forward f)
+                    f.Goals = goals;
+                else if (player is Midfielder m)
+                {
+                    m.Goals = goals;
+                    m.Assists = (int)(goals * 1.5 + _rng.Next(0, 5));
+                }
+            }
 
             // //dogodek - obvestimo vse, ki poslušajo (npr. Form1 da osveži UI)
             OnGoalsGenerated?.Invoke(player.Name, player.Position, goals);
