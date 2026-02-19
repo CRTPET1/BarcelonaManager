@@ -24,6 +24,7 @@ namespace BarcelonaManager
             cmbPosition.Items.Add("Forward");
             cmbPosition.Items.Add("Midfielder");
             cmbPosition.Items.Add("Defender");
+            cmbPosition.Items.Add("Goalkeeper");
             cmbPosition.Items.Add("Generic");
             cmbPosition.SelectedIndex = 0; // Privzeto "Forward"
         }
@@ -64,6 +65,12 @@ namespace BarcelonaManager
                         (int)numAge.Value,
                         (decimal)numValue.Value);
                     break;
+
+                case "Goalkeeper":
+                    NewPlayer = new Goalkeeper(
+                        txtName.Text,
+                        (int)numAge.Value,
+                        (decimal)numValue.Value);
 
                 default:
                     NewPlayer = new Player(
