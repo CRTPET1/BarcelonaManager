@@ -28,6 +28,27 @@ namespace BarcelonaManager.Services
             _allMarketPlayers.Add(new Forward("Darwin Núñez", 24, 80m));
             _allMarketPlayers.Add(new Forward("Harry Kane", 30, 85m));
             _allMarketPlayers.Add(new Forward("Vinicius Jr", 23, 150m));
+            _allMarketPlayers.Add(new Forward("Ansu Fati", 21, 120m));
+            _allMarketPlayers.Add(new Forward("Ousmane Dembélé", 30, 40m));
+            _allMarketPlayers.Add(new Forward("Ferran Torres", 30, 40m));
+            _allMarketPlayers.Add(new Forward("Riyad Mahrez", 33, 30m));
+            _allMarketPlayers.Add(new Forward("Ángel Di María", 35, 20m));
+            _allMarketPlayers.Add(new Forward("Sadio Mané", 32, 50m));
+            _allMarketPlayers.Add(new Forward("Gonçalo Ramos", 24, 50m));
+            _allMarketPlayers.Add(new Forward("Benjamin Šeško", 21, 90m));
+            _allMarketPlayers.Add(new Forward("Youssoufa Moukoko", 20, 60m));
+            _allMarketPlayers.Add(new Forward("Rasmus Højlund", 22, 70m));
+            _allMarketPlayers.Add(new Forward("Mason Greenwood", 24, 30m));
+            _allMarketPlayers.Add(new Forward("Dusan Vlahović", 27, 60m));
+            _allMarketPlayers.Add(new Forward("João Félix", 27, 60m));
+            _allMarketPlayers.Add(new Forward("Olivier Giroud", 37, 15m));
+            _allMarketPlayers.Add(new Forward("Ángel Correa", 30, 40m));
+            _allMarketPlayers.Add(new Forward("Raphinha", 30, 50m));
+            _allMarketPlayers.Add(new Forward("Neymar Jr", 32, 90m));
+            _allMarketPlayers.Add(new Forward("Karim Benzema", 36, 20m));
+            _allMarketPlayers.Add(new Forward("Lamine Yamal", 17, 250m));
+            _allMarketPlayers.Add(new Forward("Lionel Messi", 30, 750m));
+            _allMarketPlayers.Add(new Forward("Cristiano Ronaldo", 30, 670m));
 
             // ===== VEZISTI (Midfielder) =====
             _allMarketPlayers.Add(new Midfielder("Jude Bellingham", 20, 180m));
@@ -40,6 +61,19 @@ namespace BarcelonaManager.Services
             _allMarketPlayers.Add(new Midfielder("Khvicha Kvaratskhelia", 23, 90m));
             _allMarketPlayers.Add(new Midfielder("Gavi", 19, 100m));
             _allMarketPlayers.Add(new Midfielder("Phil Foden", 23, 120m));
+            _allMarketPlayers.Add(new Midfielder("Bruno Fernandes", 29, 70m));
+            _allMarketPlayers.Add(new Midfielder("Mason Mount", 26, 70m));
+            _allMarketPlayers.Add(new Midfielder("Sergej Milinković-Savić", 30, 60m));
+            _allMarketPlayers.Add(new Midfielder("Martin Zubimendi", 27, 50m));
+            _allMarketPlayers.Add(new Midfielder("Nicolò Barella", 29, 60m));
+            _allMarketPlayers.Add(new Midfielder("Alex Baena", 22, 50m));
+            _allMarketPlayers.Add(new Midfielder("Javi Martínez", 34, 20m));
+            _allMarketPlayers.Add(new Midfielder("Sergio Busquets", 35, 15m));
+            _allMarketPlayers.Add(new Midfielder("Rodri", 30, 70m));
+            _allMarketPlayers.Add(new Midfielder("Federico Valverde", 27, 60m));
+            _allMarketPlayers.Add(new Midfielder("Toni Kroos", 34, 25m));
+            _allMarketPlayers.Add(new Midfielder("Kevin De Bruyne", 32, 100m));
+            _allMarketPlayers.Add(new Midfielder("Joshua Kimmich", 30, 90m));
 
             // ===== BRANILCI (Defender) =====
             _allMarketPlayers.Add(new Defender("Alejandro Balde", 20, 70m));
@@ -52,6 +86,29 @@ namespace BarcelonaManager.Services
             _allMarketPlayers.Add(new Defender("Fikayo Tomori", 26, 55m));
             _allMarketPlayers.Add(new Defender("Pau Cubarsí", 17, 40m));
             _allMarketPlayers.Add(new Defender("Virgil van Dijk", 32, 50m));
+            _allMarketPlayers.Add(new Defender("Wiliam Saliba", 24, 90m));
+            _allMarketPlayers.Add(new Defender("Raphaël Varane", 31, 50m));
+            _allMarketPlayers.Add(new Defender("Marquinhos", 30, 60m));
+            _allMarketPlayers.Add(new Defender("Dayot Upamecano", 28, 70m));
+            _allMarketPlayers.Add(new Defender("Presnel Kimpembe", 30, 50m));
+            _allMarketPlayers.Add(new Defender("Nicolás Tagliafico", 33, 30m));
+            _allMarketPlayers.Add(new Defender("Pau Torres", 30, 50m));
+            _allMarketPlayers.Add(new Defender("Milan Škriniar", 30, 50m));
+            _allMarketPlayers.Add(new Defender("Wiliam Pacho", 24, 75m));
+
+            // ===== VRATARJI (Goalkeeper) =====
+            _allMarketPlayers.Add(new Goalkeeper("Thibaut Courtois", 32, 40m));
+            _allMarketPlayers.Add(new Goalkeeper("Alisson Becker", 31, 45m));
+            _allMarketPlayers.Add(new Goalkeeper("Ederson Moraes", 30, 30m));
+            _allMarketPlayers.Add(new Goalkeeper("Gianluigi Donnarumma", 27, 45m));
+            _allMarketPlayers.Add(new Goalkeeper("Mike Maignan", 30, 40m));
+            _allMarketPlayers.Add(new Goalkeeper("Jan Oblak", 31, 40m));
+            _allMarketPlayers.Add(new Goalkeeper("David de Gea", 33, 30m));
+            _allMarketPlayers.Add(new Goalkeeper("André Onana", 30, 35m));
+            _allMarketPlayers.Add(new Goalkeeper("Jan Sommer", 34, 35m));
+            _allMarketPlayers.Add(new Goalkeeper("Joan García", 23, 50m));
+            _allMarketPlayers.Add(new Goalkeeper("David Raya", 30, 50m));
+            _allMarketPlayers.Add(new Goalkeeper("Emiliano Martínez", 31, 30m));
         }
 
         // //statična metoda - vrne kopijo celotne baze (da originala ne spremenimo po nesreči)

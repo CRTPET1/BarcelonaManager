@@ -30,7 +30,6 @@ namespace BarcelonaManager
             lstPlayerStats.Items.Add($"  Sezon v klubu:    {_player.SeasonsAtClub}");
             lstPlayerStats.Items.Add($"───────────────────────────────────");
             lstPlayerStats.Items.Add($"  ⚽ Karierni goli:      {_player.CareerGoals}");
-            lstPlayerStats.Items.Add($"  🎯 Karierne asistence: {_player.CareerAssists}");
             lstPlayerStats.Items.Add($"═══════════════════════════════════");
         }
 
