@@ -62,11 +62,14 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Forward.cs" />
     <Compile Include="Models\ITransferable.cs" />
+    <Compile Include="Models\Midfielder.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerBase.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GoalGenerator.cs" />
+    <Compile Include="Services\MarketPlayerDatabase.cs" />
     <Compile Include="Services\TransferMarket.cs" />
     <Compile Include="StatsForm.cs">
       <SubType>Form</SubType>
