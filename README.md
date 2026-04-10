@@ -1,105 +1,97 @@
 # 🔵🔴 Barcelona Manager
 
-A Windows Forms football management simulation written in C# (.NET Framework 4.7.2). Manage FC Barcelona's squad across multiple seasons — buy and sell players, simulate season results, track careers, and watch your budget grow or shrink.
+Namizna aplikacija za upravljanje nogometnega kluba, napisana v C# (.NET Framework 4.7.2) z uporabo Windows Forms. Upravljaj kadro FC Barcelone skozi več sezon — kupuj in prodajaj igralce, simuliraj sezone, spremljaj karierne statistike in pazi na budget.
 
 ---
 
-## Features
+## Funkcionalnosti
 
-- **Squad management** — add players manually (Forward, Midfielder, Defender, Goalkeeper) or buy them from a transfer market of 80+ real-world players
-- **Season simulation** — generate goals and assists for each player based on their position and value, with built-in randomness for realistic variance
-- **Aging & retirement** — every season players age by 1 year; those over 33 lose 20% of their value, and players who reach 41 or drop below €15M are automatically retired
-- **Transfer market** — buy and sell players with a live budget tracker; sold players return to the market
-- **Career statistics** — track career goals, assists, and seasons at the club per player
-- **Team stats** — view total squad value, average age, MVP, and position distribution
-
----
-
-## Screenshots
-
-> *Add screenshots here after cloning and running the project.*
+- **Upravljanje kadra** — dodajaj igralce ročno (napadalec, vezist, branilec, vratar) ali jih kupuj s prestopnega trga z več kot 80 resničnimi nogometaši
+- **Simulacija sezone** — generiranje golov in asistenc za vsakega igralca glede na pozicijo in vrednost, z naključnostjo za realistično varianco
+- **Staranje in upokojevanje** — vsako sezono se vsak igralec postara za 1 leto; tisti nad 33 let izgubijo 20 % vrednosti, tisti pri 41 letih ali pod 15 M € pa se samodejno upokojijo
+- **Prestopni trg** — kupuj in prodajaj igralce s sledilcem budgeta v živo; prodani igralci se vrnejo na trg
+- **Karierne statistike** — beleženje kariernih golov, asistenc in sezon v klubu za vsakega igralca
+- **Statistike ekipe** — skupna vrednost kadra, povprečna starost, najdražji igralec in porazdelitev po pozicijah
 
 ---
 
-## Requirements
+## Zahteve
 
-| Tool | Version |
-|------|---------|
+| Orodje | Različica |
+|--------|-----------|
 | Windows | 10 / 11 |
-| Visual Studio | 2022 or newer |
-| .NET Framework | 4.7.2 or newer |
+| Visual Studio | 2022 ali novejši |
+| .NET Framework | 4.7.2 ali novejši |
 
 ---
 
-## Getting Started
+## Zagon projekta
 
-**1. Clone the repository**
+**1. Kloniraj repozitorij**
 ```bash
 git clone https://github.com/YOUR_USERNAME/BarcelonaManager.git
 ```
 
-**2. Open in Visual Studio**
-- Open Visual Studio 2022
-- Click **Open a project or solution**
-- Navigate to the cloned folder and open `BarcelonaManager.sln`
+**2. Odpri v Visual Studiu**
+- Zaženi Visual Studio 2022
+- Klikni **Open a project or solution**
+- Poišči klonirano mapo in odpri `BarcelonaManager.sln`
 
-**3. Run the project**
-- Press **F5** or click the **Start** button in the toolbar
-- The app will build and launch in a new window
+**3. Zaženi projekt**
+- Pritisni **F5** ali klikni gumb **Start** v orodni vrstici
+- Aplikacija se bo prevedla in odprla v novem oknu
 
 ---
 
-## Project Structure
+## Struktura projekta
 
 ```
 BarcelonaManager/
 ├── Models/
-│   ├── Entity.cs               # Base class with auto-generated ID
-│   ├── PlayerBase.cs           # Abstract base for all player types
-│   ├── Player.cs               # Generic player
-│   ├── Forward.cs              # Striker — high goal rate
-│   ├── Midfielder.cs           # Midfielder — goals + assists
-│   ├── Defender.cs             # Defender — low goal rate
-│   ├── Goalkeeper.cs           # Goalkeeper — rare goal logic
-│   ├── Team.cs                 # Squad container with stats
-│   └── ITransferable.cs        # Interface for transfer eligibility
+│   ├── Entity.cs               # Bazni razred z naključno generiranim ID-jem
+│   ├── PlayerBase.cs           # Abstraktni bazni razred za vse tipe igralcev
+│   ├── Player.cs               # Generičen igralec
+│   ├── Forward.cs              # Napadalec — visoko število golov
+│   ├── Midfielder.cs           # Vezist — goli + asistence
+│   ├── Defender.cs             # Branilec — redki goli
+│   ├── Goalkeeper.cs           # Vratar — posebna logika golov
+│   ├── Team.cs                 # Vsebnik kadra s statistikami
+│   └── ITransferable.cs        # Vmesnik za upravičenost do prestopa
 ├── Services/
-│   ├── GoalGenerator.cs        # Season simulation with delegate + event
-│   ├── TransferMarket.cs       # Buy/sell logic
-│   └── MarketPlayerDatabase.cs # Static database of 80+ players
-├── Form1.cs                    # Main window
-├── AddPlayerForm.cs            # Add player dialog
-├── TransferForm.cs             # Transfer market window
-├── StatsForm.cs                # Team statistics window
-└── PlayerStatsForm.cs          # Individual player career window
+│   ├── GoalGenerator.cs        # Simulacija sezone z delegatom in dogodkom
+│   ├── TransferMarket.cs       # Logika nakupa in prodaje
+│   └── MarketPlayerDatabase.cs # Statična baza 80+ igralcev
+├── Form1.cs                    # Glavno okno
+├── AddPlayerForm.cs            # Dialog za dodajanje igralca
+├── TransferForm.cs             # Okno prestopnega trga
+├── StatsForm.cs                # Okno statistik ekipe
+└── PlayerStatsForm.cs          # Okno karierne statistike posameznega igralca
 ```
 
 ---
 
-## OOP Concepts Implemented
+## Implementirani koncepti OOP
 
-This project was built as a school assignment to demonstrate core C# and OOP concepts:
-
-| Concept | Where |
-|---|---|
-| Encapsulation | `PlayerBase`, `AddPlayerForm` (`private set`), `Form1` |
-| Constructors | All model classes; static constructor in `MarketPlayerDatabase` |
-| Properties | `PlayerBase`, `Team`, `AddPlayerForm` |
-| Static & instance methods | `TransferMarket`, `GoalGenerator.GenerateForTeam()` vs `GenerateGoals()` |
-| `static` / `const` / `readonly` | `Team.Budget`, `GoalGenerator` goal factors, `MarketPlayerDatabase._allMarketPlayers` |
-| Inheritance | `PlayerBase → Forward / Midfielder / Defender / Goalkeeper` |
-| Polymorphism | `GoalGenerator` type-checks player at runtime; overridden `ToString()` per class |
-| Abstract class | `PlayerBase` with abstract `CalculateSalary()` |
-| Interface | `ITransferable` — implemented by all four player subclasses |
-| Indexers | `Team[int]`, `MarketPlayerDatabase[int]` |
-| Delegates | `GoalsGeneratedHandler` in `GoalGenerator` |
-| Events | `OnGoalsGenerated` fires after each player's goals are calculated |
-| Custom namespaces | `BarcelonaManager.Models`, `BarcelonaManager.Services` |
+| Koncept | Lokacija |
+|---------|----------|
+| Kapsulacija | `PlayerBase`, `AddPlayerForm` (`private set`), `Form1` |
+| Konstruktorji | Vsi modelni razredi; statični konstruktor v `MarketPlayerDatabase` |
+| Lastnosti | `PlayerBase`, `Team`, `AddPlayerForm` |
+| Statične in objektne metode | `TransferMarket`, `GoalGenerator.GenerateForTeam()` vs `GenerateGoals()` |
+| `static` / `const` / `readonly` | `Team.Budget`, faktorji golov v `GoalGenerator`, `MarketPlayerDatabase._allMarketPlayers` |
+| Dedovanje | `PlayerBase → Forward / Midfielder / Defender / Goalkeeper` |
+| Polimorfizem | `GoalGenerator` preverja tip igralca med izvajanjem; prepisana `ToString()` v vsakem razredu |
+| Abstraktni razred | `PlayerBase` z abstraktno metodo `CalculateSalary()` |
+| Vmesnik | `ITransferable` — implementiran v vseh štirih podrazredih |
+| Indekserji | `Team[int]`, `MarketPlayerDatabase[int]` |
+| Delegati | `GoalsGeneratedHandler` v `GoalGenerator` |
+| Dogodki | `OnGoalsGenerated` se sproži po generiranju golov za vsakega igralca |
+| Lastne knjižnice | `BarcelonaManager.Models`, `BarcelonaManager.Services` |
 
 ---
 
-## Author
+## Avtor
 
-**Ožbej Žurman** — R3B  
+**Črt Peterlin** — R3B  
 Srednja šola za kemijo, elektrotehniko in računalništvo  
 April 2026
