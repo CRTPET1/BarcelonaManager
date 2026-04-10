@@ -4,22 +4,17 @@ using System.Windows.Forms;
 
 namespace BarcelonaManager
 {
-    // //dedovanje - AddPlayerForm deduje od Form (WinForms)
     public partial class AddPlayerForm : Form
     {
-        // //konstruktor
         public AddPlayerForm()
         {
             InitializeComponent();
         }
 
-        // //lastnost - kapsuliran dostop do ustvarjenega igralca
-        // //kapsulacija - set je private, samo znotraj tega razreda ga nastavimo
         public PlayerBase NewPlayer { get; private set; }
 
         private void AddPlayerForm_Load(object sender, EventArgs e)
         {
-            // Napolni dropdown s pozicijami (namesto ročnega vpisa)
             cmbPosition.Items.Clear();
             cmbPosition.Items.Add("Forward");
             cmbPosition.Items.Add("Midfielder");
@@ -31,7 +26,6 @@ namespace BarcelonaManager
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            // Preverimo da je ime vpisano
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
                 MessageBox.Show("Vpiši ime igralca!", "Napaka",
@@ -41,8 +35,6 @@ namespace BarcelonaManager
 
             string position = cmbPosition.SelectedItem?.ToString() ?? "Generic";
 
-            // //polimorfizem - ustvarimo pravilen tip glede na izbrano pozicijo
-            // //konstruktor - klic konstruktorja za vsak podrazred
             switch (position)
             {
                 case "Forward":
