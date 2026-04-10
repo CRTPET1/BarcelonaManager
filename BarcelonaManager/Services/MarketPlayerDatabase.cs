@@ -39,7 +39,7 @@ namespace BarcelonaManager.Services
             _allMarketPlayers.Add(new Forward("Youssoufa Moukoko", 20, 60m));
             _allMarketPlayers.Add(new Forward("Rasmus Højlund", 22, 70m));
             _allMarketPlayers.Add(new Forward("Mason Greenwood", 24, 30m));
-            _allMarketPlayers.Add(new Forward("Dusan Vlahović", 27, 60m));
+            _allMarketPlayers.Add(new Forward("Dušan Vlahović", 27, 60m));
             _allMarketPlayers.Add(new Forward("João Félix", 27, 60m));
             _allMarketPlayers.Add(new Forward("Olivier Giroud", 37, 15m));
             _allMarketPlayers.Add(new Forward("Ángel Correa", 30, 40m));
